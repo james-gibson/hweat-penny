@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="96" fill="#b87333"/>
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#5a2d12" stroke-width="8"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#7a4a22" stroke-width="2"/>
+  <text x="100" y="100" text-anchor="middle" font-size="24" font-family="Georgia, serif" font-weight="bold" fill="#5a2d12">ONE</text>
+  <text x="100" y="128" text-anchor="middle" font-size="24" font-family="Georgia, serif" font-weight="bold" fill="#5a2d12">CENT</text>
+</svg>

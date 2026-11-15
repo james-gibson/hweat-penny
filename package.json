@@ -1,0 +1,31 @@
+{
+  "name": "hweat-penny",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A wheat penny, pronounced with the h. One penny, one rotation, counted every time it rolled.",
+  "homepage": "https://james-gibson.github.io/hweat-penny/",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/postbuild.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "fancy-ui-react": "0.7.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

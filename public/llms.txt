@@ -1,0 +1,25 @@
+# Hweat Penny
+
+A wheat penny, pronounced with the h. One penny, one rotation, counted every
+time it rolled on its way here.
+
+- The page is a single route at `/`.
+- The penny is one rotation (a nominal unit). The mirror mints a rotation id per
+  verified answer.
+- The numbers on the page were read from `scripts/lab/rotation.py`,
+  `scripts/lab/cost.py` and `scripts/lab/penny.py` in the `kb` vault at build
+  time — not invented.
+
+## Invariants
+
+- No navigation list: the page is one route.
+- No analytics, no search index, no CMS: the stack is React + Vite + Tailwind v4
+  + fancy-ui, served statically from GitHub Pages.
+- The "h" in "hweat" is deliberate. There is a toggle that drops it.
+
+## Build and verify
+
+```sh
+npm ci
+npm run build
+```

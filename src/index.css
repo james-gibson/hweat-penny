@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "fancy-ui-react/tailwind.css";
+
+@theme {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", monospace;
+
+  --color-ink: #160d08;
+  --color-surface: #1d120a;
+  --color-surface-2: #27190e;
+  --color-line: #3a2a1c;
+  --color-line-soft: #2c1f15;
+  --color-cream: #ead9be;
+  --color-muted: #b29a7c;
+  --color-copper: #d99a55;
+  --color-copper-deep: #b87333;
+  --color-wheat: #e7c891;
+  /* aliases so the seed-template component classes keep working */
+  --color-pulse: #d99a55;
+  --color-violet: #f0d5a8;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: color-mix(in oklab, var(--color-copper) 32%, transparent);
+  color: var(--color-cream);
+}
+
+/* A quiet grid that hints at a plot plan without becoming a pattern. */
+.plot-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(70% 60% at 50% 0%, black, transparent 78%);
+}
+
+.hairline {
+  border: 1px solid var(--color-line);
+}
+
+/* A penny spinning on a table — the "rotation" the whole page is about. */
+@keyframes penny-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-penny-spin {
+  animation: penny-spin 14s linear infinite;
+}
+
+/* A penny rolling edge-on across a surface: it advances one circumference
+   per full turn, which is what makes "rolled" and "rotation" the same word. */
+@keyframes penny-roll {
+  0% { transform: translateX(-60%) rotate(0deg); }
+  100% { transform: translateX(60%) rotate(360deg); }
+}
+
+.animate-penny-roll {
+  animation: penny-roll 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-penny-spin,
+  .animate-penny-roll {
+    animation: none;
+  }
+}
