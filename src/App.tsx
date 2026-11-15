@@ -90,7 +90,7 @@ function Router() {
 }
 
 function Site() {
-  const { say, voice, toggle } = useVoice()
+  const { say, voice, toggle, witness, toggleWitness } = useVoice()
 
   const facts = [
     { k: say('mirror rotations'), v: 6 },
@@ -101,7 +101,25 @@ function Site() {
 
   return (
     <div className="min-h-screen">
-      <Header say={say} voice={voice} toggle={toggle} />
+      <Header say={say} voice={voice} toggle={toggle} witness={witness} toggleWitness={toggleWitness} />
+
+      {witness === 'unverified' && (
+        <section className="border-b border-line/70 bg-surface-2">
+          <div className="mx-auto w-full max-w-6xl px-5 py-4 sm:px-8">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="rounded-full border border-copper-deep bg-copper/10 px-3 py-1 font-mono text-xs text-copper">
+                unverified
+              </span>
+              <p className="text-sm text-muted">
+                {say('An unverified penny rotation is: copy the existing site and claim it as the answer. No witness.')}
+              </p>
+            </div>
+            <p className="mt-2 text-xs text-muted/70">
+              {say('Stewie doesn’t want a witness. Brian doesn’t care.')}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* ---------------------------------------------------------------- hero */}
       <section className="relative overflow-hidden border-b border-line/70">
@@ -158,7 +176,9 @@ function Site() {
                   <NumberTicker value={63} />
                 </p>
                 <p className="mt-2 text-xs tracking-[0.16em] text-muted uppercase">
-                  {say('rotations, at least — one publish loop')}
+                  {witness === 'verified'
+                    ? say('rotations, at least — one publish loop')
+                    : say('rotations, claimed — no witness')}
                 </p>
               </div>
             </div>
@@ -300,15 +320,25 @@ function Site() {
           </Card>
 
           <Card>
-            <p className="text-xs tracking-[0.16em] text-wheat uppercase">{say('the witness')}</p>
-            <p className="mt-3 text-muted">
-              {say(
-                'One publish loop is the witness a plane hwill happily pay a penny for: local, deterministic, no model spend. It runs 22 checks across 63 fail() sites in 3.9 seconds — at least 63 rotations a loop, at most 62 milliseconds each.',
-              )}
+            <p className="text-xs tracking-[0.16em] text-wheat uppercase">
+              {witness === 'verified' ? say('the witness') : say('no witness')}
             </p>
-            <p className="mt-3 text-sm text-muted/80">
-              {say('63 is a floor, not a count. The loop is sterile: a clean run names none of its 22 checks.')}
-            </p>
+            {witness === 'verified' ? (
+              <>
+                <p className="mt-3 text-muted">
+                  {say(
+                    'One publish loop is the witness a plane hwill happily pay a penny for: local, deterministic, no model spend. It runs 22 checks across 63 fail() sites in 3.9 seconds — at least 63 rotations a loop, at most 62 milliseconds each.',
+                  )}
+                </p>
+                <p className="mt-3 text-sm text-muted/80">
+                  {say('63 is a floor, not a count. The loop is sterile: a clean run names none of its 22 checks.')}
+                </p>
+              </>
+            ) : (
+              <p className="mt-3 text-muted">
+                {say('An unverified penny rotation is: copy the existing site and claim it as the answer. No loop ran, no check failed, nothing hwas measured.')}
+              </p>
+            )}
           </Card>
         </div>
 
@@ -443,10 +473,14 @@ function Header({
   say,
   voice,
   toggle,
+  witness,
+  toggleWitness,
 }: {
   say: (t: string) => string
   voice: 'stewie' | 'brian'
   toggle: () => void
+  witness: 'verified' | 'unverified'
+  toggleWitness: () => void
 }) {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-ink/80 backdrop-blur">
@@ -456,13 +490,23 @@ function Header({
           <span className="font-semibold tracking-tight text-cream">{say('Hweat Penny')}</span>
           <code className="hidden font-mono text-xs text-muted/60 sm:inline">koolqhwhip</code>
         </a>
-        <button
-          onClick={toggle}
-          className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs tracking-wide text-muted transition-colors hover:text-cream"
-          aria-pressed={voice === 'brian'}
-        >
-          {voice === 'stewie' ? say('say it like Brian') : say('say it like Stewie')}
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={toggleWitness}
+            className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs tracking-wide text-muted transition-colors hover:text-cream"
+            aria-pressed={witness === 'unverified'}
+            title={witness === 'verified' ? "Stewie doesn't want a witness" : "Brian doesn't care"}
+          >
+            {witness === 'verified' ? say('witness: on') : say('witness: off')}
+          </button>
+          <button
+            onClick={toggle}
+            className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs tracking-wide text-muted transition-colors hover:text-cream"
+            aria-pressed={voice === 'brian'}
+          >
+            {voice === 'stewie' ? say('say it like Brian') : say('say it like Stewie')}
+          </button>
+        </div>
       </div>
     </header>
   )
