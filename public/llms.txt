@@ -5,8 +5,10 @@ time it rolled on its way here.
 
 - `/` — the hweat penny: the economics, the roll count, the tools.
 - `/isotopes/cornichon` (hash route) — the live penny: the live mirror count, the
-  last prompt priced, rotations made in memory, and the agent prompt that
-  reproduces the vibe.
+  last prompt priced, rotations made in memory, and the agent prompt.
+- `/skill` (hash route) — recalculate-hweat-penny: the search plan that tells an
+  agent which tools to find and how to re-derive every number. Served raw at
+  `skill.md`.
 
 The numbers on the page were read at build time from `scripts/lab/rotation.py`,
 `scripts/lab/cost.py`, `scripts/lab/penny.py`, `GET /status` on the mirror, and
@@ -14,7 +16,7 @@ The numbers on the page were read at build time from `scripts/lab/rotation.py`,
 
 ## Invariants
 
-- No navigation list: one route plus one hash route.
+- No navigation list: one route plus two hash routes.
 - No analytics, no search index, no CMS: React + Vite + Tailwind v4 + fancy-ui,
   served statically from GitHub Pages.
 - The "h" in "hweat" is deliberate. There is a toggle that drops it.

@@ -344,6 +344,11 @@ export function Isotope() {
             <code>{AGENT_PROMPT}</code>
           </pre>
         </div>
+        <p className="mt-4 text-sm">
+          <a href="#/skill" className="text-copper underline decoration-copper/30 underline-offset-4 hover:decoration-copper">
+            {say('the full skill: recalculate + pending updates →')}
+          </a>
+        </p>
       </section>
 
       {/* ------------------------------------------------------------ footer */}

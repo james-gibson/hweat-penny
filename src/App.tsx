@@ -14,6 +14,7 @@ import {
 import { WheatPenny } from './components/WheatPenny'
 import { VoiceProvider, useVoice } from './lib/speak'
 import { Isotope } from './pages/Isotope'
+import { Skill } from './pages/Skill'
 
 const SOURCE = 'https://github.com/james-gibson/hweat-penny'
 const LEGUME = 'https://james-gibson.github.io/le.gume/'
@@ -83,6 +84,7 @@ function useHashRoute(): string {
 
 function Router() {
   const path = useHashRoute().replace(/^#/, '') || '/'
+  if (path === '/skill') return <Skill />
   if (path.startsWith('/isotopes/')) return <Isotope />
   return <Site />
 }
@@ -425,6 +427,9 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
             </a>
             <a href="#/isotopes/cornichon" className="underline decoration-line underline-offset-4 hover:text-cream">
               {say('the isotope: cornichon')}
+            </a>
+            <a href="#/skill" className="underline decoration-line underline-offset-4 hover:text-cream">
+              {say('the skill')}
             </a>
             <span className="font-mono">r000006</span>
           </div>
