@@ -51,6 +51,17 @@ body {
   border: 1px solid var(--color-line);
 }
 
+/* Voice toggle: both spellings are in the DOM; CSS picks one. */
+.v-brian {
+  display: none;
+}
+html[data-voice='brian'] .v-stewie {
+  display: none;
+}
+html[data-voice='brian'] .v-brian {
+  display: inline;
+}
+
 /* A penny spinning on a table — the "rotation" the whole page is about. */
 @keyframes penny-spin {
   from { transform: rotate(0deg); }

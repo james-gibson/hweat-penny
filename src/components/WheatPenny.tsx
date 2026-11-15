@@ -3,7 +3,7 @@
  *
  * The reverse of a Lincoln wheat cent: two stalks of wheat, "ONE CENT", and the
  * legend. The obverse (Lincoln's profile) is deliberately omitted — the wheat is
- * the point, because the page is about a *hweat* penny rolling, not a president.
+ * the point, because the page is about a *hwheat* penny rolling, not a president.
  */
 export function WheatPenny({ size = 200, className }: { size?: number; className?: string }) {
   return (

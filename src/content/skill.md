@@ -49,7 +49,6 @@ them beside the mirror's number. Unmeasured is not free.
 
 ## Voice and stack
 
-Aspirate every "wh" → "hw" ("hweat", "kool hwhip") and "cool" → "kool"; the
-toggle is `src/lib/speak.tsx`. Stack: React 19 + Vite + Tailwind v4 + fancy-ui,
-copied from the le.gume seed template. Read each component's page before writing
-props (https://fancy-ui.rama.app/docs/components/react/<slug>.md).
+Stewie prepends an "h" to every "w" word ("wheat" → "hwheat", "whip" → "hwhip",
+"with" → "hwith") and spells "cool" as "kool"; Brian drops it. Both spellings
+are rendered and CSS picks one via `html[data-voice]`; the preference is stored.

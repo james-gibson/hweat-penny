@@ -1,22 +1,17 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 /**
- * The hwhole joke, as two toggles.
+ * The hwhole joke, as two toggles — the CSS version.
  *
- * The Family Guy bit is Stewie over-pronouncing the "h" in "cool hwhip" while
- * Brian says it plainly. This site is written in Stewie — "hweat penny",
- * "kool hwhip" — and the voice toggle drops every over-pronounced h back out for
- * Brian.
+ * Stewie prepends an "h" to every "w" word ("wheat" -> "hwheat", "whip" ->
+ * "hwhip", "with" -> "hwith"); Brian drops it. There is exactly one rule, so the
+ * reversal is one lookahead: remove an "h"/"H" immediately before a "w".
+ * "kool" is the one spelling change ("cool").
  *
- * Stewie aspirates two ways, so the reversal handles both:
- *   - a swap ("wheat" -> "hweat", "what" -> "hwat", "when" -> "hwen");
- *   - a prepended h ("whip" -> "hwhip", "where" -> "hwhere", "which" -> "hwhich",
- *     "whole" -> "hwhole", "why" -> "hwhy", "wheel" -> "hwheel");
- *   - and, because Stewie aspirates everything, a prepended h on words that are
- *     not "wh" at all ("with" -> "hwith", "was" -> "hwas", "will" -> "hwill").
- *
- * The witness toggle is a different choice: is the penny rotation verified, or
- * is it copied and claimed? Stewie doesn't want a witness; Brian doesn't care.
+ * Both spellings are rendered into the DOM (`say` returns two spans); CSS picks
+ * which one shows via `html[data-voice]`. The preference is stored, the way
+ * le.gume's motion rungs store a preference. The first version was a 32-line
+ * string-mapper — see /guide for the mistake and its cost.
  */
 export type Voice = 'stewie' | 'brian'
 export type Witness = 'verified' | 'unverified'
@@ -24,61 +19,55 @@ export type Witness = 'verified' | 'unverified'
 type VoiceState = {
   voice: Voice
   toggle: () => void
-  say: (text: string) => string
+  say: (text: string) => ReactNode
   witness: Witness
   setWitness: (witness: Witness) => void
   toggleWitness: () => void
 }
 
 const VoiceContext = createContext<VoiceState | null>(null)
+const STORAGE_KEY = 'hweat.voice'
 
-function toBrian(text: string): string {
+/** Stewie -> Brian: drop the prepended h and fix the one spelling. */
+export function toBrian(text: string): string {
   return text
-    // prepended h on words that are not "wh" at all (Stewie aspirates everything)
-    .replace(/Hwithout/g, 'Without')
-    .replace(/hwithout/g, 'without')
-    .replace(/Hwritten/g, 'Written')
-    .replace(/hwritten/g, 'written')
-    .replace(/Hwould/g, 'Would')
-    .replace(/hwould/g, 'would')
-    .replace(/Hwords/g, 'Words')
-    .replace(/hwords/g, 'words')
-    .replace(/Hwill/g, 'Will')
-    .replace(/hwill/g, 'will')
-    .replace(/Hways/g, 'Ways')
-    .replace(/hways/g, 'ways')
-    .replace(/Hwith/g, 'With')
-    .replace(/hwith/g, 'with')
-    .replace(/Hwas/g, 'Was')
-    .replace(/hwas/g, 'was')
-    // prepended h on true "wh" words (the double-h forms)
-    .replace(/Hwhole/g, 'Whole')
-    .replace(/hwhole/g, 'whole')
-    .replace(/Hwhere/g, 'Where')
-    .replace(/hwhere/g, 'where')
-    .replace(/Hwhich/g, 'Which')
-    .replace(/hwhich/g, 'which')
-    .replace(/Hwheel/g, 'Wheel')
-    .replace(/hwheel/g, 'wheel')
-    .replace(/Hwhy/g, 'Why')
-    .replace(/hwhy/g, 'why')
-    .replace(/Hwhip/g, 'Whip')
-    .replace(/hwhip/g, 'whip')
-    // swap forms ("hweat" -> "wheat", "hwat" -> "what", "hwen" -> "when")
-    .replace(/Hw/g, 'Wh')
-    .replace(/hw/g, 'wh')
-    // "kool" -> "cool"
+    .replace(/H(?=w)/g, '')
+    .replace(/h(?=w)/g, '')
     .replace(/Kool/g, 'Cool')
     .replace(/kool/g, 'cool')
 }
 
+function say(text: string): ReactNode {
+  return (
+    <>
+      <span className="v-stewie">{text}</span>
+      <span className="v-brian">{toBrian(text)}</span>
+    </>
+  )
+}
+
 export function VoiceProvider({ children }: { children: ReactNode }) {
-  const [voice, setVoice] = useState<Voice>('stewie')
+  const [voice, setVoice] = useState<Voice>(() => {
+    if (typeof window === 'undefined') return 'stewie'
+    try {
+      return window.localStorage.getItem(STORAGE_KEY) === 'brian' ? 'brian' : 'stewie'
+    } catch {
+      return 'stewie'
+    }
+  })
   const [witness, setWitness] = useState<Witness>('verified')
+
+  useEffect(() => {
+    document.documentElement.dataset.voice = voice
+    try {
+      window.localStorage.setItem(STORAGE_KEY, voice)
+    } catch {
+      // private browsing: the choice still applies this session
+    }
+  }, [voice])
 
   const toggle = () => setVoice((v) => (v === 'stewie' ? 'brian' : 'stewie'))
   const toggleWitness = () => setWitness((w) => (w === 'verified' ? 'unverified' : 'verified'))
-  const say = (text: string) => (voice === 'stewie' ? text : toBrian(text))
 
   return (
     <VoiceContext.Provider value={{ voice, toggle, say, witness, setWitness, toggleWitness }}>

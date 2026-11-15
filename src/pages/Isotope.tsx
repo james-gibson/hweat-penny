@@ -48,21 +48,21 @@ const RATES = {
 
 const SESSION = { messages: 245, cost: 0.242371, in: 276897, out: 95218 }
 
-const IN_MEMORY = 70 // the agent's own tool rotations this build; the mirror saw 6
+const IN_MEMORY = 90 // the agent's own tool rotations this build; the mirror saw 6
 
 const PARTS = [
   { name: 'the mirror', role: 'GET /status → live rotations + per-isotope counts' },
   { name: 'the ledger', role: 'rotation.py → append-only r-ids, gaps, the cursor' },
   { name: 'the thought history', role: "the agent's own in-memory tool calls, never mirrored" },
   { name: 'opencode.db', role: 'token counts + the billed dollar cost of each turn' },
-  { name: 'speak.tsx', role: 'the hweat ↔ wheat transform and its toggle' },
+  { name: 'speak.tsx', role: 'the hwheat ↔ wheat transform and its toggle' },
   { name: 'fancy-ui', role: 'BorderBeam, NumberTicker, Reveal — read before writing props' },
 ]
 
 const AGENT_PROMPT = `# hweat-penny — the vibe, for agents
 
-voice: aspirate every "wh" -> "hw" ("hweat", "kool hwhip"), "cool" -> "kool".
-  Toggle it via src/lib/speak.tsx (stewie / brian).
+voice: Stewie prepends "h" to every "w" word ("wheat" -> "hwheat", "whip" ->
+  "hwhip"); Brian drops it. Both forms render; CSS picks via html[data-voice].
 
 stack: React 19 + Vite + Tailwind v4 + fancy-ui-react. Copy the le.gume seed
   template; change the question, keep the stack.
@@ -93,7 +93,7 @@ export function Isotope() {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
           <a href="#/" className="flex items-center gap-3">
             <WheatPenny size={28} />
-            <span className="font-semibold tracking-tight text-cream">{say('Hweat Penny')}</span>
+            <span className="font-semibold tracking-tight text-cream">{say('Hwheat Penny')}</span>
             <code className="hidden font-mono text-xs text-muted/60 sm:inline">isotope/cornichon</code>
           </a>
           <a
@@ -141,7 +141,7 @@ export function Isotope() {
         <div className="grid gap-6 lg:grid-cols-2">
           <Card>
             <h2 className="text-lg font-semibold tracking-tight text-cream">
-              {say('Hwat it proves')}
+              {say('Hwhat it proves')}
             </h2>
             <p className="mt-3 text-muted">
               {say(
@@ -151,7 +151,7 @@ export function Isotope() {
           </Card>
           <Card>
             <h2 className="text-lg font-semibold tracking-tight text-cream">
-              {say('Hwat it costs')}
+              {say('Hwhat it costs')}
             </h2>
             <p className="mt-3 text-muted">
               {say(
@@ -197,10 +197,10 @@ export function Isotope() {
             <div className="relative overflow-hidden rounded-2xl border border-line bg-surface p-6">
               <BorderBeam colorFrom="#d99a55" colorTo="#e7c891" duration={9} size={200} glow={0.5} />
               <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-                <Stat k={say('state')} v={LIVE.state} />
-                <Stat k={say('rung')} v={String(LIVE.rung)} />
-                <Stat k={say('distance')} v={String(LIVE.distance)} />
-                <Stat k={say('rotations')} v={LIVE.rotations} ticker />
+                <Stat k="state" v={LIVE.state} />
+                <Stat k="rung" v={String(LIVE.rung)} />
+                <Stat k="distance" v={String(LIVE.distance)} />
+                <Stat k="rotations" v={LIVE.rotations} ticker />
               </div>
               <div className="mt-6 border-t border-line pt-5">
                 <p className="text-xs tracking-[0.16em] text-muted uppercase">{say('isotopes')}</p>
@@ -217,7 +217,7 @@ export function Isotope() {
             <Card>
               <div className="flex items-center justify-between gap-3">
                 <p className="text-xs tracking-[0.16em] text-muted uppercase">{say('read it live')}</p>
-                <CopyButton value={LIVE_STATUS} label={say('Copy')} copiedLabel={say('Copied')} size="sm" />
+                <CopyButton value={LIVE_STATUS} label="Copy" copiedLabel="Copied" size="sm" />
               </div>
               <pre className="mt-4 overflow-x-auto rounded-xl border border-line-soft bg-[#0c0a0c] p-4 font-mono text-[13px] leading-6 text-cream/90">
                 <code>{LIVE_STATUS}</code>
@@ -240,7 +240,7 @@ export function Isotope() {
           </h2>
           <p className="mt-2 max-w-2xl text-muted">
             {say(
-              'The API billed hwat it billed. Read straight from opencode.db — not a price sheet, a receipt.',
+              'The API billed hwhat it billed. Read straight from opencode.db — not a price sheet, a receipt.',
             )}
           </p>
         </Reveal>
@@ -281,8 +281,8 @@ export function Isotope() {
             )}
           </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <Stat k={say('input')} v={`$${RATES.in}/1M`} />
-            <Stat k={say('output')} v={`$${RATES.out}/1M`} />
+            <Stat k="input" v={`$${RATES.in}/1M`} />
+            <Stat k="output" v={`$${RATES.out}/1M`} />
           </div>
           <p className="mt-4 text-xs text-muted/70">
             {say('this session, all in:')} {SESSION.messages} {say('messages')}, ${SESSION.cost.toFixed(2)}, {SESSION.in.toLocaleString()} {say('in')} / {SESSION.out.toLocaleString()} {say('out')}
@@ -338,7 +338,7 @@ export function Isotope() {
           <BorderBeam colorFrom="#d99a55" colorTo="#e7c891" duration={11} size={200} glow={0.4} />
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs tracking-[0.16em] text-muted uppercase">{say('agent prompt')}</p>
-            <CopyButton value={AGENT_PROMPT} label={say('Copy')} copiedLabel={say('Copied')} size="sm" />
+            <CopyButton value={AGENT_PROMPT} label="Copy" copiedLabel="Copied" size="sm" />
           </div>
           <pre className="mt-4 overflow-x-auto font-mono text-[13px] leading-6 text-cream/90">
             <code>{AGENT_PROMPT}</code>

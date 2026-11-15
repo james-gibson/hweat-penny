@@ -18,7 +18,7 @@ export function Skill() {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
           <a href="#/" className="flex items-center gap-3">
             <WheatPenny size={28} />
-            <span className="font-semibold tracking-tight text-cream">{say('Hweat Penny')}</span>
+            <span className="font-semibold tracking-tight text-cream">{say('Hwheat Penny')}</span>
             <code className="hidden font-mono text-xs text-muted/60 sm:inline">skill</code>
           </a>
           <a
@@ -53,7 +53,7 @@ export function Skill() {
           </Reveal>
           <Reveal preset="fade-up" delay={180}>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <CopyButton value={skillMd} label={say('Copy the skill')} copiedLabel={say('Copied')} size="sm" />
+              <CopyButton value={skillMd} label="Copy the skill" copiedLabel="Copied" size="sm" />
               <a
                 href={SKILL_PATH}
                 className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs tracking-wide text-muted transition-colors hover:text-cream"
@@ -70,7 +70,7 @@ export function Skill() {
           <BorderBeam colorFrom="#d99a55" colorTo="#e7c891" duration={11} size={240} glow={0.4} />
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs tracking-[0.16em] text-muted uppercase">{say('the skill')}</p>
-            <CopyButton value={skillMd} label={say('Copy')} copiedLabel={say('Copied')} size="sm" />
+            <CopyButton value={skillMd} label="Copy" copiedLabel="Copied" size="sm" />
           </div>
           <pre className="mt-4 overflow-x-auto font-mono text-[13px] leading-6 text-cream/90">
             <code>{skillMd}</code>

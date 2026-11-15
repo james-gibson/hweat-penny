@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import {
-  BentoGrid,
-  BentoGridCard,
   BorderBeam,
   Button,
   CopyButton,
@@ -15,6 +13,7 @@ import { WheatPenny } from './components/WheatPenny'
 import { VoiceProvider, useVoice } from './lib/speak'
 import { Isotope } from './pages/Isotope'
 import { Skill } from './pages/Skill'
+import { Guide } from './pages/Guide'
 
 const SOURCE = 'https://github.com/james-gibson/hweat-penny'
 const LEGUME = 'https://james-gibson.github.io/le.gume/'
@@ -84,6 +83,7 @@ function useHashRoute(): string {
 
 function Router() {
   const path = useHashRoute().replace(/^#/, '') || '/'
+  if (path === '/guide') return <Guide />
   if (path === '/skill') return <Skill />
   if (path.startsWith('/isotopes/')) return <Isotope />
   return <Site />
@@ -93,10 +93,10 @@ function Site() {
   const { say, voice, toggle, witness, toggleWitness } = useVoice()
 
   const facts = [
-    { k: say('mirror rotations'), v: 6 },
-    { k: say('ledger gap'), v: 1 },
-    { k: say('per publish loop'), v: 63 },
-    { k: say('per rotation, ceiling'), v: 62 },
+    { k: 'mirror rotations', v: 6 },
+    { k: 'ledger gap', v: 1 },
+    { k: 'per publish loop', v: 63 },
+    { k: 'per rotation, ceiling', v: 62 },
   ]
 
   return (
@@ -135,7 +135,7 @@ function Site() {
 
             <Reveal preset="fade-up" delay={60}>
               <h1 className="mt-6 text-5xl leading-[1.02] font-semibold tracking-tight text-cream sm:text-7xl">
-                {say('The Hweat')}
+                {say('The Hwheat')}
                 <br />
                 <span className="text-copper">{say('Penny')}</span>
               </h1>
@@ -189,8 +189,8 @@ function Site() {
       {/* ------------------------------------------- rolling pennies marquee */}
       <MarqueeSection say={say} />
 
-      {/* ------------------------------------------------------------ hwat? */}
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20" id="hwat">
+      {/* ------------------------------------------------------------ hwhat? */}
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20" id="hwhat">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div className="relative overflow-hidden rounded-2xl border border-line bg-surface p-8">
             <BorderBeam colorFrom="#b87333" colorTo="#d99a55" duration={7} size={180} glow={0.4} />
@@ -200,19 +200,19 @@ function Site() {
             <Reveal preset="fade-up">
               <p className="text-xs tracking-[0.16em] text-copper uppercase">{say('the coin')}</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-cream">
-                {say('Hwat is a hweat penny?')}
+                {say('Hwhat is a hwheat penny?')}
               </h2>
             </Reveal>
             <Reveal preset="fade-up" delay={60}>
               <div className="mt-5 space-y-4 text-muted">
                 <p>
                   {say(
-                    'A hweat penny is a one-cent piece minted from 1909 to 1958, with two stalks of hweat on the back — hence the name. Copper, small, worth exactly one cent.',
+                    'A hwheat penny is a one-cent piece minted from 1909 to 1958, with two stalks of hwheat on the back — hence the name. Copper, small, worth exactly one cent.',
                   )}
                 </p>
                 <p>
                   {say(
-                    'In this lab it is also a unit of account. A penny is one rotation. A rotation is one verified answer to one isotope. Hwen you spend a penny, you spend one turn of the hwheel — and the hwheel counts every turn.',
+                    'In this lab it is also a unit of account. A penny is one rotation. A rotation is one verified answer to one isotope. Hwhen you spend a penny, you spend one turn of the hwheel — and the hwheel counts every turn.',
                   )}
                 </p>
               </div>
@@ -235,18 +235,20 @@ function Site() {
           </Reveal>
 
           <Reveal preset="fade-up" delay={60} className="mt-8">
-            <BentoGrid accent="#d99a55" className="w-full">
+            <div className="grid gap-4 sm:grid-cols-3">
               {CHAIN.map((step) => (
-                <BentoGridCard
-                  key={step.name}
-                  name={say(step.name)}
-                  description={say(step.desc)}
-                  href={step.href}
-                  cta={say(step.cta)}
-                  icon={<span className="font-mono text-xs text-copper">{step.icon}</span>}
-                />
+                <div key={step.name} className="rounded-xl border border-line bg-surface p-5">
+                  <div className="flex items-center gap-2">
+                    <span className="grid h-7 w-7 place-items-center rounded-md border border-line bg-surface-2 font-mono text-xs text-copper">
+                      {step.icon}
+                    </span>
+                    <p className="text-sm font-medium text-cream">{say(step.name)}</p>
+                  </div>
+                  <p className="mt-3 text-sm text-muted">{say(step.desc)}</p>
+                  <p className="mt-2 text-xs text-copper">{say(step.cta)}</p>
+                </div>
               ))}
-            </BentoGrid>
+            </div>
           </Reveal>
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -254,7 +256,7 @@ function Site() {
               <p className="text-xs tracking-[0.16em] text-copper uppercase">{say('cost centre')}</p>
               <p className="mt-2 font-mono text-3xl font-semibold text-cream">3.2p</p>
               <p className="mt-2 text-sm text-muted">
-                {say('expensive per verified answer. Hwat an intent costs hwen it does not pay for its own reuse.')}
+                {say('expensive per verified answer. Hwhat an intent costs hwhen it does not pay for its own reuse.')}
               </p>
             </Card>
             <Card>
@@ -276,7 +278,7 @@ function Site() {
             {say('How many times did it roll on its way here?')}
           </h2>
           <p className="mt-2 max-w-2xl text-muted">
-            {say('The ledger says, and the ledger is honest about hwat it does not know.')}
+            {say('The ledger says, and the ledger is honest about hwhat it does not know.')}
           </p>
         </Reveal>
 
@@ -388,7 +390,7 @@ function Site() {
             <BorderBeam colorFrom="#d99a55" colorTo="#e7c891" duration={11} size={200} glow={0.4} />
             <div className="flex items-center justify-between gap-3">
               <p className="text-xs tracking-[0.16em] text-muted uppercase">{say('copied straight from the scripts')}</p>
-              <CopyButton value={ROTATION_CMD} label={say('Copy')} copiedLabel={say('Copied')} size="sm" />
+              <CopyButton value={ROTATION_CMD} label="Copy" copiedLabel="Copied" size="sm" />
             </div>
             <pre className="mt-4 overflow-x-auto font-mono text-[13px] leading-6 text-cream/90">
               <code>{`$ ${ROTATION_CMD}
@@ -435,7 +437,7 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
 
         <p className="mt-6 text-sm text-muted/80">
           {say(
-            'The honest caveat: the mirror’s rotations are unpriced, not free, and the witness floor is a floor, not a count. Hwat the third-party agent pays is model spend to rediscover hwat the tools already knew.',
+            'The honest caveat: the mirror’s rotations are unpriced, not free, and the witness floor is a floor, not a count. Hwhat the third-party agent pays is model spend to rediscover hwhat the tools already knew.',
           )}
         </p>
       </section>
@@ -445,7 +447,7 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="flex items-center gap-3">
             <WheatPenny size={22} />
-            <p className="text-sm text-cream">{say('Hweat Penny — one penny, one rotation.')}</p>
+            <p className="text-sm text-cream">{say('Hwheat Penny — one penny, one rotation.')}</p>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted">
             <span>AGPL-3.0-only</span>
@@ -460,6 +462,9 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
             </a>
             <a href="#/skill" className="underline decoration-line underline-offset-4 hover:text-cream">
               {say('the skill')}
+            </a>
+            <a href="#/guide" className="underline decoration-line underline-offset-4 hover:text-cream">
+              {say('the guide')}
             </a>
             <span className="font-mono">r000006</span>
           </div>
@@ -476,7 +481,7 @@ function Header({
   witness,
   toggleWitness,
 }: {
-  say: (t: string) => string
+  say: (t: string) => ReactNode
   voice: 'stewie' | 'brian'
   toggle: () => void
   witness: 'verified' | 'unverified'
@@ -487,7 +492,7 @@ function Header({
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <a href="#" className="flex items-center gap-3">
           <WheatPenny size={28} />
-          <span className="font-semibold tracking-tight text-cream">{say('Hweat Penny')}</span>
+          <span className="font-semibold tracking-tight text-cream">{say('Hwheat Penny')}</span>
           <code className="hidden font-mono text-xs text-muted/60 sm:inline">koolqhwhip</code>
         </a>
         <div className="flex flex-wrap items-center gap-2">
@@ -512,9 +517,9 @@ function Header({
   )
 }
 
-function MarqueeSection({ say }: { say: (t: string) => string }) {
+function MarqueeSection({ say }: { say: (t: string) => ReactNode }) {
   const phrases = [
-    'hweat penny',
+    'hwheat penny',
     'kool hwhip',
     'one penny = one rotation',
     '≥63 a loop',
@@ -542,7 +547,7 @@ function Card({ children }: { children: React.ReactNode }) {
   return <div className="rounded-2xl border border-line bg-surface p-6">{children}</div>
 }
 
-function ThirdPartyPrice({ say }: { say: (t: string) => string }) {
+function ThirdPartyPrice({ say }: { say: (t: string) => ReactNode }) {
   const [pos, setPos] = useState(0)
   const multiple = Math.round(63 * Math.pow(1.16, pos))
   const label =
@@ -562,7 +567,7 @@ function ThirdPartyPrice({ say }: { say: (t: string) => string }) {
         max={100}
         value={pos}
         onChange={(e) => setPos(Number(e.target.value))}
-        aria-label={say('how high?')}
+        aria-label="how high?"
         className="mt-6 w-full accent-[#d99a55]"
       />
       <p className="mt-2 text-xs text-muted/70">{say('how high? drag it — a penny priced hwithout the tools.')}</p>
