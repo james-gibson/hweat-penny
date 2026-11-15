@@ -27,6 +27,8 @@ where they live:
 | `ADHD` | the lab's own service (`scripts/adhd/adhd.yaml`, `dev.kb.adhd`) | note the plist |
 | `OUTSTANDING.md` | the pending updates | re-derive anything it changes |
 | `le.gume` | the seed template this site copied (`~/projects/personal/le.gume`) | copy the stack, change the question |
+| `rotation-state.mjs` | each seed's own rotation ledger (`upstream/rotations.jsonl`) | read `{seed}/rotations.json` — the state it publishes |
+| `update-cost.json` | the measured per-seed update bill (`src/data/update-cost.json`) | re-measure it; the page and the JSON must agree |
 
 ## Recalculate
 
@@ -34,7 +36,12 @@ where they live:
 2. Update the baked constants in `src/pages/Isotope.tsx`: `LIVE` (the mirror
    `/status`), `LEDGER` (rotation ids and gaps), `LAST_PROMPT` / `RATES` /
    `SESSION` (opencode.db), `IN_MEMORY` (your own thought history).
-3. Rebuild and verify, then ship — the push is the deploy:
+3. Re-measure the update bill in `src/data/update-cost.json`: for each seed run
+   `npm run build` (wall clock), then count the guard's `fail('` sites and
+   distinct names, the contrast pairs in `src/lib/palette.json`, and the rule
+   counts in `scripts/doomlint.mjs` / `scripts/a11y.mjs`. A rotation is one
+   verified answer; the bill is rotations, not seconds. Update `measuredAt`.
+4. Rebuild and verify, then ship — the push is the deploy:
    ```sh
    npm ci
    npm run build

@@ -1,0 +1,96 @@
+{
+  "measuredAt": "2026-11-15",
+  "unit": "a rotation is one verified answer to one isotope; a penny is one rotation",
+  "method": "one `npm run build` per seed on this machine (node 24.21.0), wall clock. `checks` counts distinct fail() names in the publish guard, `sites` the fail() call lines, `pairs` the declared contrast pairs, `doom`/`a11y` the rule counts, `shells` the pages the overflow gate verifies (one rotation each). `rotations` = sites + pairs + doom + a11y + shells: the floor a cycle can verify, not what a clean run reports.",
+  "seeds": [
+    {
+      "seed": "le.gume",
+      "role": "parent",
+      "rules": "publishes",
+      "checks": 20,
+      "sites": 58,
+      "pairs": 11,
+      "doom": 15,
+      "a11y": 10,
+      "seconds": 4.0,
+      "rotations": 176,
+      "shells": 82
+    },
+    {
+      "seed": "le.gume-energy",
+      "role": "starter copy",
+      "rules": "29d863e",
+      "checks": 22,
+      "sites": 58,
+      "pairs": 11,
+      "doom": 15,
+      "a11y": 10,
+      "seconds": 4.1,
+      "rotations": 127,
+      "shells": 33
+    },
+    {
+      "seed": "le.railhead",
+      "role": "child",
+      "rules": "29d863e",
+      "checks": 12,
+      "sites": 29,
+      "pairs": 8,
+      "doom": 0,
+      "a11y": 0,
+      "seconds": 3.1,
+      "rotations": 66,
+      "shells": 29
+    },
+    {
+      "seed": "that-train-dashboard",
+      "role": "child",
+      "rules": "29d863e",
+      "checks": 11,
+      "sites": 23,
+      "pairs": 0,
+      "doom": 0,
+      "a11y": 0,
+      "seconds": 5.8,
+      "rotations": 40,
+      "shells": 17
+    },
+    {
+      "seed": "zaphood",
+      "role": "child",
+      "rules": "29d863e",
+      "checks": 12,
+      "sites": 30,
+      "pairs": 0,
+      "doom": 0,
+      "a11y": 0,
+      "seconds": 3.7,
+      "rotations": 45,
+      "shells": 15
+    }
+  ],
+  "notes": [
+    "The two starters are the most expensive cycles (176 and 127 rotations) and the bare children the cheapest (40-45). Cost follows the number of claims a cycle can verify, not the machine.",
+    "Wall time is flat: 3.1-5.8 seconds across a fourfold spread in rotations. A gate is paid for in rotations, not seconds.",
+    "The accounting itself is nearly free: the rules catch-up is one fetch, the rotation gate reads a committed file. The gates are what cost.",
+    "The overflow gate has no waiver list on any seed: a design may be a marquee (zaphood), but a horizontal scrollbar is content the reader cannot reach.",
+    "Every seed publishes its own state at /rotations.json (rung, distance, head, rotations per isotope), so an updater reads the record instead of guessing."
+  ],
+  "tokenCost": {
+    "measuredAt": "2026-11-15",
+    "source": "opencode.db, read by scripts/lab/cost.py",
+    "session": {
+      "messages": 188,
+      "cost_usd": 0.1849,
+      "tokens_in": 234056,
+      "tokens_out": 62759
+    },
+    "per": {
+      "seed_brought_to_parity_usd": 0.046,
+      "gate_installed_usd": 0.013,
+      "five_seed_pass_usd": 0.18
+    },
+    "run_usd_per_cycle": 0.0,
+    "extrapolation": "The agent pays to change the gates; the machine pays to run them. A five-seed accounting pass cost $0.18 and 296,815 tokens, one-off. A cycle then costs $0 and 3-6 seconds. Extrapolated at $0.013 a gate-installation: doom + a11y + contrast for the two bare children (6 installations, plus justified waivers) is about $0.08-0.12 once, and raises their cycle floor from 40/45 to ~90 at no per-cycle cost."
+  }
+}

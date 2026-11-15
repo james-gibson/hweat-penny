@@ -18,4 +18,13 @@ if (!existsSync(skill)) {
 }
 copyFileSync(skill, join('dist', 'skill.md'))
 
-console.log('postbuild: wrote dist/.nojekyll and dist/skill.md')
+// The measured update bill is published as data, not only as prose: the page
+// renders this same file, so the table and the JSON cannot disagree.
+const updateCost = join('src', 'data', 'update-cost.json')
+if (!existsSync(updateCost)) {
+  console.error('postbuild: src/data/update-cost.json is missing')
+  process.exit(1)
+}
+copyFileSync(updateCost, join('dist', 'update-cost.json'))
+
+console.log('postbuild: wrote dist/.nojekyll, dist/skill.md and dist/update-cost.json')

@@ -10,6 +10,7 @@ import {
   Reveal,
 } from 'fancy-ui-react'
 import { WheatPenny } from './components/WheatPenny'
+import updateCost from './data/update-cost.json'
 import { VoiceProvider, useVoice } from './lib/speak'
 import { Isotope } from './pages/Isotope'
 import { Skill } from './pages/Skill'
@@ -356,6 +357,70 @@ function Site() {
           >
             {say('Read the live count on the isotope →')}
           </a>
+        </p>
+      </section>
+
+      {/* ------------------------------------------------------- update cost */}
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20" id="update">
+        <Reveal preset="fade-up">
+          <p className="text-xs tracking-[0.16em] text-copper uppercase">{say('the update bill')}</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-cream">
+            {say('What one update costs, seed by seed')}
+          </h2>
+          <p className="mt-2 max-w-2xl text-muted">
+            {say(
+              'A seed pays for an update in rotations, not hours. Count hwhat a cycle can verify — the guard\u2019s checks, the contrast pairs, the doom and a11y rules — and the clock barely moves. The price of an update is hwhat it can prove.',
+            )}
+          </p>
+        </Reveal>
+
+        <div className="mt-8 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-muted/70">
+                <th className="pb-2 font-medium">{say('seed')}</th>
+                <th className="pb-2 font-medium">{say('role')}</th>
+                <th className="pb-2 text-right font-medium">{say('checks')}</th>
+                <th className="pb-2 text-right font-medium">{say('sites')}</th>
+                <th className="pb-2 text-right font-medium">{say('pairs')}</th>
+                <th className="pb-2 text-right font-medium">{say('doom')}</th>
+                <th className="pb-2 text-right font-medium">{say('a11y')}</th>
+                <th className="pb-2 text-right font-medium">{say('shells')}</th>
+                <th className="pb-2 text-right font-medium">{say('seconds')}</th>
+                <th className="pb-2 text-right font-medium">{say('rotations')}</th>
+              </tr>
+            </thead>
+            <tbody className="font-mono text-cream">
+              {updateCost.seeds.map((row) => (
+                <tr key={row.seed} className="border-t border-line">
+                  <td className="py-2">{row.seed}</td>
+                  <td className="py-2 text-muted">{row.role}</td>
+                  <td className="py-2 text-right">{row.checks}</td>
+                  <td className="py-2 text-right">{row.sites}</td>
+                  <td className="py-2 text-right">{row.pairs}</td>
+                  <td className="py-2 text-right">{row.doom}</td>
+                  <td className="py-2 text-right">{row.a11y}</td>
+                  <td className="py-2 text-right">{row.shells}</td>
+                  <td className="py-2 text-right">{row.seconds.toFixed(1)}</td>
+                  <td className="py-2 text-right">{row.rotations}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          {updateCost.notes.map((note) => (
+            <Card key={note}>
+              <p className="text-sm text-muted">{say(note)}</p>
+            </Card>
+          ))}
+        </div>
+
+        <p className="mt-6 text-sm text-muted/80">
+          {say(
+            `Measured ${updateCost.measuredAt}. ${updateCost.method} The record each seed publishes is at its own /rotations.json.`,
+          )}
         </p>
       </section>
 
