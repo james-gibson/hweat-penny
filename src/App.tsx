@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BentoGrid,
   BentoGridCard,
@@ -13,6 +13,7 @@ import {
 } from 'fancy-ui-react'
 import { WheatPenny } from './components/WheatPenny'
 import { VoiceProvider, useVoice } from './lib/speak'
+import { Isotope } from './pages/Isotope'
 
 const SOURCE = 'https://github.com/james-gibson/hweat-penny'
 const LEGUME = 'https://james-gibson.github.io/le.gume/'
@@ -64,9 +65,26 @@ function scrollTo(id: string) {
 export function App() {
   return (
     <VoiceProvider>
-      <Site />
+      <Router />
     </VoiceProvider>
   )
+}
+
+/** A two-route SPA on the hash. No server, no router dependency, no prerender. */
+function useHashRoute(): string {
+  const [hash, setHash] = useState(() => window.location.hash)
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash)
+    window.addEventListener('hashchange', onChange)
+    return () => window.removeEventListener('hashchange', onChange)
+  }, [])
+  return hash
+}
+
+function Router() {
+  const path = useHashRoute().replace(/^#/, '') || '/'
+  if (path.startsWith('/isotopes/')) return <Isotope />
+  return <Site />
 }
 
 function Site() {
@@ -297,6 +315,14 @@ function Site() {
             'So, on its way here, it rolled at least 63 times through the loop that built its own seed template, and 6 more through the mirror that serves this vault — skipping r000002 and stuttering on r000003.',
           )}
         </p>
+        <p className="mt-4 text-sm">
+          <a
+            href="#/isotopes/cornichon"
+            className="text-copper underline decoration-copper/30 underline-offset-4 hover:decoration-copper"
+          >
+            {say('Read the live count on the isotope →')}
+          </a>
+        </p>
       </section>
 
       {/* ------------------------------------------------------------- tools */}
@@ -396,6 +422,9 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
             </a>
             <a href={SOURCE} className="underline decoration-line underline-offset-4 hover:text-cream">
               {say('source')}
+            </a>
+            <a href="#/isotopes/cornichon" className="underline decoration-line underline-offset-4 hover:text-cream">
+              {say('the isotope: cornichon')}
             </a>
             <span className="font-mono">r000006</span>
           </div>

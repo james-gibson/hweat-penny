@@ -3,18 +3,20 @@
 A wheat penny, pronounced with the h. One penny, one rotation, counted every
 time it rolled on its way here.
 
-- The page is a single route at `/`.
-- The penny is one rotation (a nominal unit). The mirror mints a rotation id per
-  verified answer.
-- The numbers on the page were read from `scripts/lab/rotation.py`,
-  `scripts/lab/cost.py` and `scripts/lab/penny.py` in the `kb` vault at build
-  time — not invented.
+- `/` — the hweat penny: the economics, the roll count, the tools.
+- `/isotopes/cornichon` (hash route) — the live penny: the live mirror count, the
+  last prompt priced, rotations made in memory, and the agent prompt that
+  reproduces the vibe.
+
+The numbers on the page were read at build time from `scripts/lab/rotation.py`,
+`scripts/lab/cost.py`, `scripts/lab/penny.py`, `GET /status` on the mirror, and
+`opencode.db` in the `kb` vault — not invented.
 
 ## Invariants
 
-- No navigation list: the page is one route.
-- No analytics, no search index, no CMS: the stack is React + Vite + Tailwind v4
-  + fancy-ui, served statically from GitHub Pages.
+- No navigation list: one route plus one hash route.
+- No analytics, no search index, no CMS: React + Vite + Tailwind v4 + fancy-ui,
+  served statically from GitHub Pages.
 - The "h" in "hweat" is deliberate. There is a toggle that drops it.
 
 ## Build and verify
