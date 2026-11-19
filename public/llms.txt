@@ -18,6 +18,15 @@ The numbers on the page were read at build time from `scripts/lab/rotation.py`,
 `scripts/lab/cost.py`, `scripts/lab/penny.py`, `GET /status` on the mirror, and
 `opencode.db` in the `kb` vault — not invented.
 
+## Family
+
+- [le.critic](https://james-gibson.github.io/le.critic/) — a critic that gives reproducible feedback
+- [le.plot](https://james-gibson.github.io/le.plot/) — the plot
+- [le.gume-shell](https://james-gibson.github.io/le.gume-shell/) — the shell
+- [le.stalk](https://james-gibson.github.io/le.stalk/) — the stalk
+- [le.ad](https://james-gibson.github.io/le.ad/) — the ad
+- [le.gume](https://james-gibson.github.io/le.gume/) — the starter
+
 ## Invariants
 
 - No navigation list: one route plus four hash routes.

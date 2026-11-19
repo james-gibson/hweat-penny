@@ -20,6 +20,15 @@ import { Pitch } from './pages/Pitch'
 const SOURCE = 'https://github.com/james-gibson/hweat-penny'
 const LEGUME = 'https://james-gibson.github.io/le.gume/'
 
+/** The le.* family this seed shares its vocabulary with. */
+const FAMILY = [
+  { name: 'le.critic', href: 'https://james-gibson.github.io/le.critic/' },
+  { name: 'le.plot', href: 'https://james-gibson.github.io/le.plot/' },
+  { name: 'le.gume-shell', href: 'https://james-gibson.github.io/le.gume-shell/' },
+  { name: 'le.stalk', href: 'https://james-gibson.github.io/le.stalk/' },
+  { name: 'le.ad', href: 'https://james-gibson.github.io/le.ad/' },
+]
+
 const ROTATION_CMD = 'python3 scripts/lab/rotation.py --since 60'
 
 /** The three hwords, in order. */
@@ -516,27 +525,41 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
             <WheatPenny size={22} />
             <p className="text-sm text-cream">{say('Hwheat Penny — one penny, one rotation.')}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted">
-            <span>AGPL-3.0-only</span>
-            <a href={LEGUME} className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('from the le.gume seed template')}
-            </a>
-            <a href={SOURCE} className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('source')}
-            </a>
-            <a href="#/isotopes/cornichon" className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('the isotope: cornichon')}
-            </a>
-            <a href="#/skill" className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('the skill')}
-            </a>
-            <a href="#/guide" className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('the guide')}
-            </a>
-            <a href="#/pitch" className="underline decoration-line underline-offset-4 hover:text-cream">
-              {say('the pitch')}
-            </a>
-            <span className="font-mono">r000006</span>
+          <div className="flex flex-col gap-2 sm:items-end">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted">
+              <span>AGPL-3.0-only</span>
+              <a href={LEGUME} className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('from the le.gume seed template')}
+              </a>
+              <a href={SOURCE} className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('source')}
+              </a>
+              <a href="#/isotopes/cornichon" className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('the isotope: cornichon')}
+              </a>
+              <a href="#/skill" className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('the skill')}
+              </a>
+              <a href="#/guide" className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('the guide')}
+              </a>
+              <a href="#/pitch" className="underline decoration-line underline-offset-4 hover:text-cream">
+                {say('the pitch')}
+              </a>
+              <span className="font-mono">r000006</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted">
+              <span className="tracking-[0.16em] text-copper uppercase">{say('the family')}</span>
+              {FAMILY.map((f) => (
+                <a
+                  key={f.name}
+                  href={f.href}
+                  className="underline decoration-line underline-offset-4 hover:text-cream"
+                >
+                  {f.name}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
