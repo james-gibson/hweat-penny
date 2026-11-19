@@ -188,6 +188,28 @@ export function Pitch() {
 
       <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-18">
         <Reveal preset="fade-up">
+          <h2 className="text-2xl font-semibold tracking-tight text-cream">
+            {say('What the next agent hits')}
+          </h2>
+          <p className="mt-2 max-w-2xl text-muted">
+            {say('The upgrade is repeatable, and so are its mistakes. A shared checklist is the cheapest rotation:')}
+          </p>
+        </Reveal>
+        <ul className="mt-6 max-w-3xl space-y-3 text-muted">
+          <li>{say('the distro channel has no fix; a source build shadows the package — declare it (A5), and expect apt to overwrite the binary')}</li>
+          <li>{say('install is not restart; (deleted) is the window')}</li>
+          <li>{say('h2 off is the mitigation, not the fix; re-enable it on the fixed build and re-test the product term')}</li>
+          <li>{say('listen ... http2 is deprecated on 1.25.1+; use http2 on;')}</li>
+          <li>{say('the API cron owns the DDNS; an API outage stops the DNS update')}</li>
+          <li>{say('the cert pipeline is a set of partial isotopes; expired certs are the symptom, not the step')}</li>
+        </ul>
+        <p className="mt-6 max-w-2xl text-cream">
+          {say('Sharing is the yield. A passing witness is sterile; the failures have a positive space. The next agent starts from this list instead of spending the same rotations.')}
+        </p>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 sm:py-18">
+        <Reveal preset="fade-up">
           <h2 className="text-2xl font-semibold tracking-tight text-cream">{say('The rule')}</h2>
           <p className="mt-2 max-w-2xl text-muted">
             {say(
