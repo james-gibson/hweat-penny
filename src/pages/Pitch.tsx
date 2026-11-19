@@ -11,6 +11,12 @@ const REGISTER = [
   },
   {
     risk: 'CVE-2026-123633 on bookworm',
+    alt: 'source build 1.30.7',
+    need: 'distro package management / unattended-upgrades provenance',
+    owner: 'edge owner / when bookworm ships a fixed package',
+  },
+  {
+    risk: 'CVE-2026-123633 on bookworm',
     alt: 'move to trixie',
     need: 'stability / ops churn',
     owner: 'platform owner / migration window',
@@ -24,7 +30,8 @@ const REGISTER = [
 ]
 
 const ALTERNATIVES = [
-  { name: 'HTTP/2 off', price: 'one rotation to verify cve_safe', cost: 'the h2 need', state: 'taken' },
+  { name: 'HTTP/2 off', price: 'one rotation to verify cve_safe; reverted on the fixed build', cost: 'the h2 need', state: 'taken' },
+  { name: 'Source build 1.30.7', price: 'the build’s rotations', cost: 'package provenance', state: 'taken' },
   { name: 'Move to trixie', price: 'the migration’s rotations', cost: 'the stability need', state: 'open' },
   { name: 'Accept', price: 'the monitoring rotations', cost: 'the residual risk', state: 'open' },
 ]
@@ -158,11 +165,11 @@ export function Pitch() {
               {say('The worked example')}
             </h2>
             <p className="mt-2 max-w-2xl text-muted">
-              {say('Bookworm had no fixed nginx. “Upgrade” was not the action; the alternatives were:')}
+              {say('Bookworm had no fixed nginx. “Upgrade” was not the action; the alternatives were — and the source build skipped the distro channels:')}
             </p>
           </Reveal>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {ALTERNATIVES.map((a) => (
               <div key={a.name} className="rounded-2xl border border-line bg-surface p-6">
                 <div className="flex items-center justify-between gap-3">
