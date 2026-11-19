@@ -11,6 +11,8 @@ time it rolled on its way here.
   `skill.md`.
 - `/guide` (hash route) — the mistake: the 32-line string-mapper, priced, and the
   one-rule CSS fix.
+- `/pitch` (hash route) — a security trade-off is not a flag: the register, the
+  two currencies, and the penny.
 
 The numbers on the page were read at build time from `scripts/lab/rotation.py`,
 `scripts/lab/cost.py`, `scripts/lab/penny.py`, `GET /status` on the mirror, and
@@ -18,7 +20,7 @@ The numbers on the page were read at build time from `scripts/lab/rotation.py`,
 
 ## Invariants
 
-- No navigation list: one route plus three hash routes.
+- No navigation list: one route plus four hash routes.
 - No analytics, no search index, no CMS: React + Vite + Tailwind v4 + fancy-ui,
   served statically from GitHub Pages.
 - The voice is one rule (prepend "h" to a "w" word); both spellings render and

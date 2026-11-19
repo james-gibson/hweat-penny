@@ -15,6 +15,7 @@ import { VoiceProvider, useVoice } from './lib/speak'
 import { Isotope } from './pages/Isotope'
 import { Skill } from './pages/Skill'
 import { Guide } from './pages/Guide'
+import { Pitch } from './pages/Pitch'
 
 const SOURCE = 'https://github.com/james-gibson/hweat-penny'
 const LEGUME = 'https://james-gibson.github.io/le.gume/'
@@ -86,6 +87,7 @@ function Router() {
   const path = useHashRoute().replace(/^#/, '') || '/'
   if (path === '/guide') return <Guide />
   if (path === '/skill') return <Skill />
+  if (path === '/pitch') return <Pitch />
   if (path.startsWith('/isotopes/')) return <Isotope />
   return <Site />
 }
@@ -530,6 +532,9 @@ $ python3 scripts/lab/penny.py --run-file scripts/lab/fixtures/penny/legume-loop
             </a>
             <a href="#/guide" className="underline decoration-line underline-offset-4 hover:text-cream">
               {say('the guide')}
+            </a>
+            <a href="#/pitch" className="underline decoration-line underline-offset-4 hover:text-cream">
+              {say('the pitch')}
             </a>
             <span className="font-mono">r000006</span>
           </div>
